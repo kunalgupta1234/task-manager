@@ -9,31 +9,29 @@
 </template>
 
 <script>
+import { ref } from "vue";
+import { useRouter } from "vue-router";
+import { projectFirestore } from "../firebase/config";
+
 export default {
-  data() {
-    return {
-      title: "",
-      details: "",
-    };
-  },
-  methods: {
-    handleSubmit() {
-      let task = {
-        title: this.title,
-        details: this.details,
+  setup() {
+    const title = ref("");
+    const details = ref("");
+
+    const router = useRouter();
+
+    const handleSubmit = async () => {
+      const task = {
+        title: title.value,
+        details: details.value,
         complete: false,
       };
 
-      fetch("http://localhost:3000/tasks", {
-        method: "POST",
-        headers: { "content-type": "application/json" },
-        body: JSON.stringify(task),
-      })
-        .then(() => {
-          this.$router.push("/");
-        })
-        .catch((err) => console.log(err));
-    },
+      const res = await projectFirestore.collection("tasks").add(task);
+
+      router.push({ name: "home" });
+    };
+    return { title, details, handleSubmit };
   },
 };
 </script>
