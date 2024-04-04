@@ -3,7 +3,7 @@
     <div class="actions">
       <h3 @click="showDetails = !showDetails">{{ task.title }}</h3>
       <div>
-        <span class="material-icons"> edit </span>
+        <!-- <span class="material-icons"> edit </span> -->
         <span @click="deleteTask" class="material-icons"> delete </span>
         <span @click="toggleComplete" class="material-icons"> done </span>
       </div>
@@ -27,11 +27,7 @@ export default {
         .then(() => this.$emit("delete", this.task.id))
         .catch((err) => console.log(err));
     },
-    // deleteTask() {
-    //   fetch(this.uri, { method: "DELETE" })
-    //     .then(() => this.$emit("delete", this.task.id))
-    //     .catch((err) => console.log(err.message));
-    // },
+   
     toggleComplete() {
       fetch(this.uri, {
         method: "PATCH",
@@ -54,7 +50,7 @@ export default {
   padding: 10px 20px;
   border-radius: 4px;
   box-shadow: 1px 2px 3px rgba(0, 0, 0, 0.05);
-  border-left: 4px solid #e90074;
+  border: 4px solid #e90074;
 }
 h3 {
   cursor: pointer;
@@ -75,7 +71,7 @@ h3 {
   }
   /* completed projects */
   .task.complete {
-    border-left: 4px solid #00ce89;
+    border: 4px solid #00ce89;
   }
   .task.complete .tick {
     color: #00ce89;

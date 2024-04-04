@@ -1,5 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
+import AddTask from '../views/AddTask.vue'
 
 const routes = [
   {
@@ -8,7 +9,9 @@ const routes = [
     component: HomeView
   },
   {
-  
+  path:'/add',
+  name:'AddTask',
+  component:AddTask,
   }
 ]
 
