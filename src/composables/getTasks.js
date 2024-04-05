@@ -8,15 +8,20 @@ const getTasks = () => {
 
   const load = async () => {
     try {
-      const res = await projectFirestore.collection('tasks').get()
-      //console.log(res.docs)
+      // const res = await projectFirestore.collection('tasks').get()
 
-      tasks.value = res.docs.map(doc => {
-         //console.log(doc.data())
-        return { ...doc.data(), id: doc.id }
+      // tasks.value = res.docs.map(doc => {
+      //   return { ...doc.data(), id: doc.id }
+      // })
+
+      projectFirestore.collection('tasks').onSnapshot((snap) => {
+        let docs = snap.docs.map(doc => {
+          return { ...doc.data(), id: doc.id }
+        })
+        tasks.value = docs
       })
     }
-    catch(err) {
+    catch (err) {
       error.value = err.message
     }
   }

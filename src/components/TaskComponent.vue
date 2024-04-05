@@ -4,27 +4,51 @@
       <h3 @click="showDetails = !showDetails">{{ task.title }}</h3>
       <div>
         <!-- <span class="material-icons"> edit </span> -->
-        <span @click="deleteTask" class="material-icons"> delete </span>
-        <span @click="toggleComplete" class="material-icons"> done </span>
+        <button @click="handleDelete">delete</button>
+        <!-- <span @click="deleteTask" class="material-icons"> delete </span>
+        <span @click="toggleComplete" class="material-icons"> done </span> -->
       </div>
     </div>
-    <div class="details" v-if="showDetails">{{ snippet }}</div>
+    <!-- <div class="details">{{ task.details }}</div> -->
   </div>
 </template>
 
 
 <script>
-import { computed } from "vue";
+// import getTask from "../composables/getTask";
+// import { useRoute, useRouter } from "vue-router";
+// import { computed } from "vue";
+import { projectFirestore } from "../firebase/config";
 
 export default {
   props: ["task"],
   setup(props) {
-    const snippet = computed(() => {
-      return props.task.details.substring(0, 100) + "...";
-    });
-    console.log(snippet.value);
+    // const router = useRouter();
+    // const route = useRoute();
+    // console.log("delete1");
+    // const snippet = computed(() => {
+    //   return props.task.details.substring(0, 100) + "...";
+    // });
+    // console.log(snippet.value);
 
-    return { snippet };
+    // return { snippet };
+    // const { task, error, load } = getTask(props.task.id);
+    // load();
+    const handleDelete = async () => {
+      console.log(props.task.id, props.task.title);
+      await projectFirestore.collection("tasks").doc(props.task.id).delete();
+
+      // router.push({ name: "home" });
+      // window.location.reload();
+
+    };
+
+    // const deleteTask = async () => {
+    //   console.log("delete");
+    //   await projectFirestore.collection("tasks").doc(props.task.id).delete();
+    // };
+
+    return { handleDelete };
   },
 };
 </script>
@@ -33,11 +57,11 @@ export default {
 <style>
 .task {
   margin: 20px auto;
-  /* background: white;
+  background: white;
   padding: 10px 20px;
   border-radius: 4px;
-  box-shadow: 1px 2px 3px rgba(0, 0, 0, 0.05); */
-  border: 4px solid #e90074;
+  box-shadow: 1px 2px 3px rgba(0, 0, 0, 0.05);
+  border-left: 4px solid #e90074;
 }
 h3 {
   cursor: pointer;
@@ -48,9 +72,9 @@ h3 {
   align-items: center;
 }
 .material-icons {
-  /* font-size: 24px;
-    margin-left: 10px;
-    color: #bbb; */
+  font-size: 24px;
+  margin-left: 10px;
+  color: #bbb;
   cursor: pointer;
 }
 .material-icons:hover {
@@ -58,9 +82,9 @@ h3 {
 }
 /* completed projects */
 .task.complete {
-  border: 4px solid #00ce89;
+  border-left: 4px solid #00ce89;
 }
-/* .task.complete .tick {
-    color: #00ce89;
-  } */
+.task.complete .tick {
+  color: #00ce89;
+}
 </style>

@@ -46,10 +46,10 @@ export default {
 <style>
 .task {
   margin: 20px auto;
-  /* background: white;
+  background: white;
   padding: 10px 20px;
   border-radius: 4px;
-  box-shadow: 1px 2px 3px rgba(0, 0, 0, 0.05); */
+  box-shadow: 1px 2px 3px rgba(0, 0, 0, 0.05);
   border: 4px solid #e90074;
 }
 h3 {
@@ -61,9 +61,9 @@ h3 {
   align-items: center;
 }
 .material-icons {
-    /* font-size: 24px;
+    font-size: 24px;
     margin-left: 10px;
-    color: #bbb; */
+    color: #bbb;
     cursor: pointer;
   }
   .material-icons:hover {
@@ -73,7 +73,7 @@ h3 {
   .task.complete {
     border: 4px solid #00ce89;
   }
-  /* .task.complete .tick {
+  .task.complete .tick {
     color: #00ce89;
-  } */
+  }
 </style>
