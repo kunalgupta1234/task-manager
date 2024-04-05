@@ -4,7 +4,10 @@
       <h3 @click="showDetails = !showDetails">{{ task.title }}</h3>
       <div>
         <!-- <span class="material-icons"> edit </span> -->
-        <button @click="handleDelete">delete</button>
+        <button @click="handleDelete" class="delete-button">delete</button>
+        <button @click="handleComplete" class="complete-button">
+          Complete
+        </button>
         <!-- <span @click="deleteTask" class="material-icons"> delete </span>
         <span @click="toggleComplete" class="material-icons"> done </span> -->
       </div>
@@ -40,7 +43,17 @@ export default {
 
       // router.push({ name: "home" });
       // window.location.reload();
+    };
 
+    const handleComplete = async () => {
+      let docRef = await projectFirestore
+        .collection("tasks")
+        .doc(props.task.id);
+      console.log(docRef, props.task.complete);
+      const res = await docRef.update({ complete: !props.task.complete });
+      // await projectFirestore.collection("tasks").doc(props.task.id).delete();
+      // router.push({ name: "home" });
+      // window.location.reload();
     };
 
     // const deleteTask = async () => {
@@ -48,7 +61,7 @@ export default {
     //   await projectFirestore.collection("tasks").doc(props.task.id).delete();
     // };
 
-    return { handleDelete };
+    return { handleDelete, handleComplete };
   },
 };
 </script>
@@ -86,5 +99,27 @@ h3 {
 }
 .task.complete .tick {
   color: #00ce89;
+}
+.delete-button {
+  display: block;
+  margin: 20px auto 0;
+  background: red;
+  color: white;
+  padding: 10px;
+  border: 0;
+  border-radius: 6px;
+  font-size: 16px;
+  cursor: pointer;
+}
+.complete-button {
+  display: block;
+  margin: 20px auto 0;
+  background: #00ce89;
+  color: white;
+  padding: 10px;
+  border: 0;
+  border-radius: 6px;
+  font-size: 16px;
+  cursor: pointer;
 }
 </style>
