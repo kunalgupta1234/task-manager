@@ -4,10 +4,12 @@
       <h3 @click="showDetails = !showDetails">{{ task.title }}</h3>
       <div>
         <!-- <span class="material-icons"> edit </span> -->
-        <button @click="handleDelete" class="delete-button">delete</button>
-        <button @click="handleComplete" class="complete-button">
-          Complete
-        </button>
+        <span @click="handleDelete" class="material-icons"> delete </span>
+        <span @click="handleComplete" class="material-icons tick"> done </span>
+        <!-- <button @click="handleDelete" class="delete-button">delete</button> -->
+        <!-- <button @click="handleComplete" class="complete-button">
+          update
+        </button> -->
         <!-- <span @click="deleteTask" class="material-icons"> delete </span>
         <span @click="toggleComplete" class="material-icons"> done </span> -->
       </div>
