@@ -6,6 +6,8 @@
         <!-- <span class="material-icons"> edit </span> -->
         <span @click="handleDelete" class="material-icons"> delete </span>
         <span @click="handleComplete" class="material-icons tick"> done </span>
+        <span> Days Remaining = {{ task.daysRemaining }} </span>
+
         <!-- <button @click="handleDelete" class="delete-button">delete</button> -->
         <!-- <button @click="handleComplete" class="complete-button">
           update

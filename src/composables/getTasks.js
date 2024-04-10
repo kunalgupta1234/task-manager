@@ -14,7 +14,7 @@ const getTasks = () => {
       //   return { ...doc.data(), id: doc.id }
       // })
 
-      projectFirestore.collection('tasks').onSnapshot((snap) => {
+      projectFirestore.collection('tasks').orderBy('daysRemaining').onSnapshot((snap) => {
         let docs = snap.docs.map(doc => {
           return { ...doc.data(), id: doc.id }
         })
