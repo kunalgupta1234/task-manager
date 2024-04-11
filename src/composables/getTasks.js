@@ -26,7 +26,7 @@ const getTasks = () => {
     }
   }
 
-  return { tasks, error, load }
+  return { tasks, error, load}
 }
 
 export default getTasks

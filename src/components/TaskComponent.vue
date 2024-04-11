@@ -1,4 +1,8 @@
 <template>
+  <label for="">Search between:</label>
+  Start Date : <input type="date" v-model="sd" /> End Date :
+  <input type="date" v-model="ed" />
+  <button @click="handleSearch">Search</button>
   <div class="task" :class="{ complete: task.complete }">
     <div class="actions">
       <h3 @click="showDetails = !showDetails">{{ task.title }}</h3>
@@ -6,7 +10,9 @@
         <!-- <span class="material-icons"> edit </span> -->
         <span @click="handleDelete" class="material-icons"> delete </span>
         <span @click="handleComplete" class="material-icons tick"> done </span>
-        <span> Days Remaining = {{ task.daysRemaining }} </span>
+        <span v-if="!task.complete">
+          Days Remaining = {{ task.daysRemaining }}
+        </span>
 
         <!-- <button @click="handleDelete" class="delete-button">delete</button> -->
         <!-- <button @click="handleComplete" class="complete-button">
@@ -22,14 +28,18 @@
 
 
 <script>
+import { ref } from "vue";
+
 // import getTask from "../composables/getTask";
 // import { useRoute, useRouter } from "vue-router";
 // import { computed } from "vue";
-import { projectFirestore } from "../firebase/config";
+// import { projectFirestore } from "../firebase/config";
 
 export default {
   props: ["task"],
   setup(props) {
+    const sd = ref("");
+    const ed = ref("");
     // const router = useRouter();
     // const route = useRoute();
     // console.log("delete1");
@@ -42,7 +52,7 @@ export default {
     // const { task, error, load } = getTask(props.task.id);
     // load();
     const handleDelete = async () => {
-      console.log(props.task.id, props.task.title);
+      // console.log(props.task.id, props.task.title);
       await projectFirestore.collection("tasks").doc(props.task.id).delete();
 
       // router.push({ name: "home" });
@@ -53,11 +63,16 @@ export default {
       let docRef = await projectFirestore
         .collection("tasks")
         .doc(props.task.id);
-      console.log(docRef, props.task.complete);
+      // console.log(docRef, props.task.complete);
       const res = await docRef.update({ complete: !props.task.complete });
       // await projectFirestore.collection("tasks").doc(props.task.id).delete();
       // router.push({ name: "home" });
       // window.location.reload();
+    };
+
+    const handleSearch = async () => {
+      console.log(sd.value);
+      // alert(sd.value);
     };
 
     // const deleteTask = async () => {
@@ -65,7 +80,7 @@ export default {
     //   await projectFirestore.collection("tasks").doc(props.task.id).delete();
     // };
 
-    return { handleDelete, handleComplete };
+    return { handleDelete, handleComplete, handleSearch, sd, ed };
   },
 };
 </script>
